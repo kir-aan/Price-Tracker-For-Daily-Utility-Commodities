@@ -1,7 +1,5 @@
 import requests
 from bs4 import BeautifulSoup
-import pandas as pd
-from time import sleep
 
 headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:94.0) Gecko/20100101 Firefox/94.0',
@@ -27,10 +25,9 @@ print('Product Price: ', amzProductPrice)
 amzProductLink = 'https://www.amazon.com' + str(firstProductDiv[0].find('a', {'class':'a-link-normal s-underline-text s-underline-link-text s-link-style a-text-normal'})['href']).replace('amp;','')
 print('Product Link: ',amzProductLink)
 print('---------------------------------------')
+print()
 
-
-
-#kohls
+#KOHLS
 print('---------------------------------------')
 print("KOHLS")
 kohlsSearchURL = 'https://www.kohls.com/search.jsp?submit-search=web-regular&search={0}'.format(search_query)
@@ -44,6 +41,7 @@ print('Product Name: ',productNameDiv.getText().replace('\n', '').lstrip())
 print('Product Price: ',productPriceSpan.getText())
 print('https://www.kohls.com/'+productLinkP)
 print('---------------------------------------')
+print()
 
 #WALMART
 walmartSearchURL = 'https://www.walmart.com/search?q={0}'.format(search_query)
@@ -58,3 +56,4 @@ print('Product Name: ',firstProductDiv[0].find('span',{'class':'w_Bl'}).getText(
 print('Product Price:', firstProductDiv[0].find('div',{'data-automation-id':'product-price'}).find('span',{'class':'w_Bl'}).getText())
 print('Product Link: ', firstProductDiv[0].find('a')['href'])
 print('---------------------------------------')
+print()
