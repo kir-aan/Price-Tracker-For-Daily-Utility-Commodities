@@ -2,6 +2,7 @@ from main import amazonSearch, kohlsSearch, walmartSearch
 import webbrowser
 from tkinter import *
 
+#Adds search results on the screen
 def add_elements(frame: Frame, brand, productName, productPrice, productLink):
 
     pos = [0,0,200,5,200,70,550,65] # l1x, l1y, l2x, l2y, l3x, l3y, bx, by
@@ -28,11 +29,14 @@ def add_elements(frame: Frame, brand, productName, productPrice, productLink):
     )
     button.place(x=pos[6],y=pos[7])
 
+#Performs Search when search button is clicked or if the return key is pressed
 def search(event=None):
     search_query = query.get()
+
     amzSearchResult = amazonSearch(search_query)
     kohlSearchResult = kohlsSearch(search_query)
     walSearchResult = walmartSearch(search_query)
+
     frame1 = Frame(master=window, width=660, height=100, bg="light grey")
     frame1.place(x=20, y=100)
 
@@ -41,12 +45,13 @@ def search(event=None):
 
     frame3 = Frame(master=window, width=660, height=100, bg="light grey")
     frame3.place(x=20, y=340)
+
     add_elements(frame1, "Amazon", amzSearchResult[0], amzSearchResult[1], amzSearchResult[2])
     add_elements(frame2, "Kohls", kohlSearchResult[0], kohlSearchResult[1], kohlSearchResult[2])
     add_elements(frame3, "Walmart", walSearchResult[0], walSearchResult[1], walSearchResult[2])
     query.set("")
 
-
+#Main GUI definition
 window = Tk()
 window.title('Price Tracker For Daily Utility Commodities')
 window.geometry("700x500")
@@ -66,4 +71,5 @@ search_button = Button(
 search_bar.place(x=180, y=25)
 search_button.place(x=475, y=28)
 window.bind('<Return>', search)
+
 window.mainloop()

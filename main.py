@@ -6,19 +6,21 @@ headers = {
     'Accept-Language': 'en-US, en;q=0.5'
 }
 
+#Peforms search on amazon.com and returns the result
 def amazonSearch(search_query):
     amazonSearchURL = 'https://www.amazon.com/s?k={0}'.format(search_query)
     
     response = requests.get(amazonSearchURL + '&page=0', headers=headers)
     soup = BeautifulSoup(response.content, 'html.parser')
     
-    firstProductDiv = soup.find_all('div', {'data-index': '2'})
-    productName = firstProductDiv[0].find('span', {'class':'a-size-base-plus a-color-base a-text-normal'}).getText()
-    productPrice = (float)(firstProductDiv[0].find('span', {'class': 'a-offscreen'}).getText()[1:])
-    productLink = 'https://www.amazon.com' + str(firstProductDiv[0].find('a', {'class':'a-link-normal s-underline-text s-underline-link-text s-link-style a-text-normal'})['href']).replace('amp;','')
+    firstProductDiv = soup.find('div', {'data-index': '2'})
+    productName = firstProductDiv.find('span', {'class':'a-size-base-plus a-color-base a-text-normal'}).getText()
+    productPrice = (float)(firstProductDiv.find('span', {'class': 'a-offscreen'}).getText()[1:])
+    productLink = 'https://www.amazon.com' + str(firstProductDiv.find('a', {'class':'a-link-normal s-underline-text s-underline-link-text s-link-style a-text-normal'})['href']).replace('amp;','')
     
     return productName, productPrice, productLink
 
+#Performs search on kohls.com and returns the result
 def kohlsSearch(search_query):
     kohlsSearchURL = 'https://www.kohls.com/search.jsp?submit-search=web-regular&search={0}'.format(search_query)
     
@@ -32,15 +34,16 @@ def kohlsSearch(search_query):
 
     return productName, productPrice, productLink
 
+#Performs search on walmart.com and returns the result
 def walmartSearch(search_query):
     walmartSearchURL = 'https://www.walmart.com/search?q={0}'.format(search_query)
     
     response = requests.get(walmartSearchURL + '&page=1', headers=headers)
     soup = BeautifulSoup(response.content, 'html.parser')
     
-    firstProductDiv = soup.find_all('div', {'class':'mb1 ph1 pa0-xl bb b--near-white w-25'})
-    productName = firstProductDiv[0].find('span',{'class':'w_Bl'}).getText()
-    productPrice = (float)(firstProductDiv[0].find('div',{'data-automation-id':'product-price'}).find('span',{'class':'w_Bl'}).getText()[15:])
-    productLink = firstProductDiv[0].find('a')['href']
+    firstProductDiv = soup.find('div', {'class':'mb1 ph1 pa0-xl bb b--near-white w-25'})
+    productName = firstProductDiv.find('span',{'class':'w_Bl'}).getText()
+    productPrice = (float)(firstProductDiv.find('div',{'data-automation-id':'product-price'}).find('span',{'class':'w_Bl'}).getText()[15:])
+    productLink = firstProductDiv.find('a')['href']
 
     return productName, productPrice, productLink
