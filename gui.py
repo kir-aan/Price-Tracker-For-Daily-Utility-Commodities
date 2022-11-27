@@ -21,7 +21,7 @@ def add_elements(frame: Frame, brand, pos, productName, productPrice, productLin
         text="Link",
         padx = 2,
         pady = 2,
-        # action = () => openWebpage(productLink) -- FIX THIS
+        command= lambda : webbrowser.open_new(productLink)
     )
     button.place(x=pos[6],y=pos[7])
 
@@ -30,10 +30,19 @@ def search():
     amzSearchResult = amazonSearch(search_query)
     kohlSearchResult = kohlsSearch(search_query)
     walSearchResult = walmartSearch(search_query)
+    frame1 = Frame(master=window, width=660, height=100, bg="light grey")
+    frame1.place(x=20, y=100)
+
+    frame2 = Frame(master=window, width=660, height=100, bg="light grey")
+    frame2.place(x=20, y=220)
+
+    frame3 = Frame(master=window, width=660, height=100, bg="light grey")
+    frame3.place(x=20, y=340)
     add_elements(frame1, "Amazon", [0,0,200,10,200,35,500,25], amzSearchResult[0], amzSearchResult[1], amzSearchResult[2])
     add_elements(frame2, "Kohls", [0,0,200,10,200,35,500,25], kohlSearchResult[0], kohlSearchResult[1], kohlSearchResult[2])
     add_elements(frame3, "Walmart", [0,0,200,10,200,35,500,25], walSearchResult[0], walSearchResult[1], walSearchResult[2])
     query.set("")
+
 
 window = Tk()
 window.title('Price Tracker For Daily Utility Commodities')
@@ -43,15 +52,6 @@ window.resizable(width=False, height=False)
 query = StringVar()
 search_bar = Entry(window,textvariable = query, font=('calibre',20,'normal'))
 search_query = query.get()
-
-frame1 = Frame(master=window, width=660, height=100, bg="light grey")
-frame1.place(x=20, y=100)
-
-frame2 = Frame(master=window, width=660, height=100, bg="light grey")
-frame2.place(x=20, y=220)
-
-frame3 = Frame(master=window, width=660, height=100, bg="light grey")
-frame3.place(x=20, y=340)
 
 search_button = Button(
     text="Search",
