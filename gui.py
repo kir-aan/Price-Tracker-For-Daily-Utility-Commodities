@@ -1,4 +1,5 @@
 from main import amazonSearch, kohlsSearch, walmartSearch
+import webbrowser
 from tkinter import *
 
 def add_elements(frame: Frame, brand, pos, productName, productPrice, productLink):
@@ -19,7 +20,8 @@ def add_elements(frame: Frame, brand, pos, productName, productPrice, productLin
     button = Button(master=frame,
         text="Link",
         padx = 2,
-        pady = 2
+        pady = 2,
+        # action = () => openWebpage(productLink) -- FIX THIS
     )
     button.place(x=pos[6],y=pos[7])
 
