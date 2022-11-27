@@ -2,13 +2,16 @@ from main import amazonSearch, kohlsSearch, walmartSearch
 import webbrowser
 from tkinter import *
 
-def add_elements(frame: Frame, brand, pos, productName, productPrice, productLink):
+def add_elements(frame: Frame, brand, productName, productPrice, productLink):
+
+    pos = [0,0,200,5,200,70,550,65] # l1x, l1y, l2x, l2y, l3x, l3y, bx, by
+
     global label1
     label1=Label(master=frame, text=brand)
     label1.place(x=pos[0], y=pos[1])
 
     global label2
-    label2 = Label(master=frame,text="Product Name:" + productName)
+    label2 = Label(master=frame,text="Product Name: " + productName, wraplength=450)
     label2.place(x=pos[2], y=pos[3])
 
     global label3
@@ -25,7 +28,7 @@ def add_elements(frame: Frame, brand, pos, productName, productPrice, productLin
     )
     button.place(x=pos[6],y=pos[7])
 
-def search():
+def search(event=None):
     search_query = query.get()
     amzSearchResult = amazonSearch(search_query)
     kohlSearchResult = kohlsSearch(search_query)
@@ -38,9 +41,9 @@ def search():
 
     frame3 = Frame(master=window, width=660, height=100, bg="light grey")
     frame3.place(x=20, y=340)
-    add_elements(frame1, "Amazon", [0,0,200,10,200,35,500,25], amzSearchResult[0], amzSearchResult[1], amzSearchResult[2])
-    add_elements(frame2, "Kohls", [0,0,200,10,200,35,500,25], kohlSearchResult[0], kohlSearchResult[1], kohlSearchResult[2])
-    add_elements(frame3, "Walmart", [0,0,200,10,200,35,500,25], walSearchResult[0], walSearchResult[1], walSearchResult[2])
+    add_elements(frame1, "Amazon", amzSearchResult[0], amzSearchResult[1], amzSearchResult[2])
+    add_elements(frame2, "Kohls", kohlSearchResult[0], kohlSearchResult[1], kohlSearchResult[2])
+    add_elements(frame3, "Walmart", walSearchResult[0], walSearchResult[1], walSearchResult[2])
     query.set("")
 
 
@@ -62,5 +65,5 @@ search_button = Button(
 
 search_bar.place(x=180, y=25)
 search_button.place(x=475, y=28)
-
+window.bind('<Return>', search)
 window.mainloop()
