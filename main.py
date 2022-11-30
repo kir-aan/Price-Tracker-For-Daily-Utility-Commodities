@@ -59,5 +59,7 @@ def walmartSearch(search_query):
     productName = firstProductDiv.find('span',{'class':'w_Bl'}).getText()
     productPrice = extractPrice(firstProductDiv.find('div',{'data-automation-id':'product-price'}).find('span',{'class':'w_Bl'}).getText())
     productLink = firstProductDiv.find('a')['href']
+    if(productLink[0:4]!='http'):
+        productLink = "https://www.walmart.com/" + productLink
 
     return productName, productPrice, productLink
